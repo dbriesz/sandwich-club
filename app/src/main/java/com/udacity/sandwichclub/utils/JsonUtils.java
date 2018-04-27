@@ -13,15 +13,16 @@ public class JsonUtils {
 
     public static Sandwich parseSandwichJson(String json) throws JSONException {
         JSONObject sandwichData = new JSONObject(json);
-        String mainName = String.valueOf(sandwichData.getJSONObject("main_name"));
+        JSONObject name = sandwichData.getJSONObject("name");
+        String mainName = name.getString("mainName");
         List<String> alsoKnownAs = new ArrayList<>();
-        JSONArray alsoKnownAsData = sandwichData.getJSONArray("alsoKnownAs");
+        JSONArray alsoKnownAsData = name.getJSONArray("alsoKnownAs");
         for (int i = 0; i < alsoKnownAsData.length(); i++) {
             alsoKnownAs.add(alsoKnownAsData.getString(i));
         }
-        String placeOfOrigin = String.valueOf(sandwichData.getJSONObject("placeOfOrigin"));
-        String description = String.valueOf(sandwichData.getJSONObject("description"));
-        String image = String.valueOf(sandwichData.getJSONObject("image"));
+        String placeOfOrigin = sandwichData.getString("placeOfOrigin");
+        String description = sandwichData.getString("description");
+        String image = sandwichData.getString("image");
         List<String> ingredients = new ArrayList<>();
         JSONArray ingredientData = sandwichData.getJSONArray("ingredients");
         for (int i = 0; i < ingredientData.length(); i++) {
