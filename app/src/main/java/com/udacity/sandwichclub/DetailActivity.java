@@ -85,16 +85,10 @@ public class DetailActivity extends AppCompatActivity {
         mSandwichIngredients = (TextView) findViewById(R.id.ingredients_tv);
 
         mSandwichOrigin.setText(sandwich.getPlaceOfOrigin());
-        int count = 0;
         List<String> alsoKnownAsList = sandwich.getAlsoKnownAs();
-        List<String> dedupedAlsoKnownAsList = new ArrayList<>();
-        for (String str : alsoKnownAsList) {
-            if (!dedupedAlsoKnownAsList.contains(str)) {
-                dedupedAlsoKnownAsList.add(str);
-            }
-        }
-        for (String i : dedupedAlsoKnownAsList) {
-            if(count++ == dedupedAlsoKnownAsList.size() - 1) {
+        int count = 0;
+        for (String i : alsoKnownAsList) {
+            if(count == alsoKnownAsList.size() - 1) {
                 mSandwichAlsoKnownAs.append(i);
             } else {
                 mSandwichAlsoKnownAs.append(i + ", ");
