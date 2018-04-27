@@ -14,6 +14,12 @@ import com.udacity.sandwichclub.utils.JsonUtils;
 
 import org.json.JSONException;
 
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_POSITION = "extra_position";
@@ -58,7 +64,7 @@ public class DetailActivity extends AppCompatActivity {
             return;
         }
 
-        populateUI();
+        populateUI(sandwich);
         Picasso.with(this)
                 .load(sandwich.getImage())
                 .into(ingredientsIv);
@@ -71,12 +77,40 @@ public class DetailActivity extends AppCompatActivity {
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
 
-    private void populateUI() {
+    private void populateUI(Sandwich sandwich) {
         mSandwichImage = (ImageView) findViewById(R.id.image_iv);
         mSandwichOrigin = (TextView) findViewById(R.id.origin_tv);
         mSandwichAlsoKnownAs = (TextView) findViewById(R.id.also_known_tv);
         mSandwichDescription = (TextView) findViewById(R.id.description_tv);
         mSandwichIngredients = (TextView) findViewById(R.id.ingredients_tv);
+
+        mSandwichOrigin.setText(sandwich.getPlaceOfOrigin());
+        int count = 0;
+        List<String> alsoKnownAsList = sandwich.getAlsoKnownAs();
+        List<String> dedupedAlsoKnownAsList = new ArrayList<>();
+        for (String str : alsoKnownAsList) {
+            if (!dedupedAlsoKnownAsList.contains(str)) {
+                dedupedAlsoKnownAsList.add(str);
+            }
+        }
+        for (String i : dedupedAlsoKnownAsList) {
+            if(count++ == dedupedAlsoKnownAsList.size() - 1) {
+                mSandwichAlsoKnownAs.append(i);
+            } else {
+                mSandwichAlsoKnownAs.append(i + ", ");
+                count++;
+            }
+        }
+        mSandwichDescription.setText(sandwich.getDescription());
+        int counter = 0;
+        for (String j : sandwich.getIngredients()) {
+            if(counter++ == sandwich.getIngredients().size() - 1) {
+                mSandwichIngredients.append(j);
+            } else {
+                mSandwichIngredients.append(j + ", ");
+                count++;
+            }
+        }
 
         mSandwichImage.setVisibility(View.VISIBLE);
         mSandwichOrigin.setVisibility(View.VISIBLE);
