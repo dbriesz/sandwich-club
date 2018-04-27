@@ -3,6 +3,7 @@ package com.udacity.sandwichclub;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -76,5 +77,11 @@ public class DetailActivity extends AppCompatActivity {
         mSandwichAlsoKnownAs = (TextView) findViewById(R.id.also_known_tv);
         mSandwichDescription = (TextView) findViewById(R.id.description_tv);
         mSandwichIngredients = (TextView) findViewById(R.id.ingredients_tv);
+
+        mSandwichImage.setVisibility(View.VISIBLE);
+        mSandwichOrigin.setVisibility(View.VISIBLE);
+        mSandwichAlsoKnownAs.setVisibility(View.VISIBLE);
+        mSandwichDescription.setVisibility(View.VISIBLE);
+        mSandwichIngredients.setVisibility(View.VISIBLE);
     }
 }
